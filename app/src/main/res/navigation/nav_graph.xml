@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main.xml"
+    app:startDestination="@id/firstTabFragment">
+
+    <fragment
+        android:id="@+id/firstTabFragment"
+        android:name="com.example.mytodo.MainFragment.MainListFragment"
+        android:label="fragment_first_tab"
+        tools:layout="@layout/main_list_fragment" >
+        <action
+            android:id="@+id/action_firstTabFragment_to_secondTabFragment"
+            app:destination="@id/secondTabFragment" />
+        <action
+            android:id="@+id/action_firstTabFragment_to_addTaskDialogFragment"
+            app:destination="@id/addTaskDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondTabFragment"
+        android:name="com.example.mytodo.HistoryListFragment.HistoryListFragment"
+        android:label="fragment_second_tab"
+        tools:layout="@layout/history_list_fragment" />
+    <dialog
+        android:id="@+id/addTaskDialogFragment"
+        android:name="com.example.mytodo.AddTaskDialog.AddTaskDialogFragment"
+        android:label="AddTaskDialogFragment" >
+        <action
+            android:id="@+id/action_addTaskDialogFragment_to_firstTabFragment"
+            app:destination="@id/firstTabFragment" />
+    </dialog>
+</navigation>

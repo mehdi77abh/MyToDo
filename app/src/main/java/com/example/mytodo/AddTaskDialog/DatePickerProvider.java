@@ -22,6 +22,7 @@ public class DatePickerProvider {
                 .setShowInBottomSheet(false)
                 .setMaxYear(1410)
                 .setActionTextColor(Color.BLACK)
+                .setActionTextSize(16)
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR);
 
         return picker;

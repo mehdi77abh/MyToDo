@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl"
+    tools:context=".HistoryListFragment.HistoryListFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_toolbar">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/history_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyToolbar"
+
+                    android:background="@drawable/main_toolbar"
+                    app:title="@string/app_name"
+                    app:titleTextColor="@color/white"
+                    app:menu="@menu/history_toolbar_menu" />
+
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <EditText
+                    android:id="@+id/searchEt"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit_text"
+                    android:hint="جستجو..."
+                    android:drawablePadding="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="12dp"
+                    android:textColor="@color/defaultTextColor"
+                    android:textColorHint="@color/secondaryTextColor"
+                    android:drawableLeft="@drawable/ic_search_gray_24dp"
+                    >
+
+                </EditText>
+
+            </FrameLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_second_fragment"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_task" />
+    </LinearLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

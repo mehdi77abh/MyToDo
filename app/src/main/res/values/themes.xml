@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyToDo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MyToDo" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -30,4 +30,6 @@
         <!-- Customize your theme here. -->
         <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
     </style>
+
+
 </resources>

@@ -1,12 +1,19 @@
-package com.example.mytodo.FirstFragment;
+package com.example.mytodo.MainFragment;
 
+import android.app.ListActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static com.example.mytodo.AddTaskDialog.Const.IMPORTANCE_NORMAL;
+import static com.example.mytodo.AddTaskDialog.Const.IMPORTANCE_HIGH;
+import static com.example.mytodo.AddTaskDialog.Const.IMPORTANCE_LOW;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytodo.AddTaskDialog.AddTaskDialogFragment;
@@ -15,11 +22,12 @@ import com.example.mytodo.R;
 
 import java.util.List;
 
-public class DoRecyclerListAdapter extends RecyclerView.Adapter<DoRecyclerListAdapter.MyViewHolder> {
+public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MyViewHolder>{
     private List<Task> notDoneTasks;
-
-    public DoRecyclerListAdapter(List<Task> notDoneTasks) {
+    private EventListener eventListener ;
+    public MainListAdapter(List<Task> notDoneTasks,EventListener eventListener) {
         this.notDoneTasks = notDoneTasks;
+        this.eventListener =eventListener;
     }
 
     @NonNull
@@ -34,34 +42,13 @@ public class DoRecyclerListAdapter extends RecyclerView.Adapter<DoRecyclerListAd
         myViewHolder.bindView(notDoneTasks.get(i));
     }
 
-    public void addTask(Task task) {
-        notDoneTasks.add(0, task);
-        notifyItemInserted(0);
-
-    }
-
-    public void addAllTasks() {
-    }
-
-    public void deleteTask(Task task) {
-        for (int i = 0; i <notDoneTasks.size() ; i++) {
-            if (notDoneTasks.get(i)==task){
-                notDoneTasks.remove(i);
-                notifyItemRemoved(i);
-            }
-        }
-    }
-
-    public void deleteAllTasks() {
-    }
-
-    public void updateTask() {
-
-    }
 
     @Override
     public int getItemCount() {
         return notDoneTasks.size();
+    }
+    public Task getTask(int pos){
+        return notDoneTasks.get(pos);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -88,14 +75,14 @@ public class DoRecyclerListAdapter extends RecyclerView.Adapter<DoRecyclerListAd
             txt_date.setText(task.getDate());
             img_check.setImageResource(R.drawable.shape_checkbox_default);
             switch (task.getImportance()) {
-                case AddTaskDialogFragment.IMPORTANCE_HIGH:
+                case IMPORTANCE_HIGH:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_high_rect);
                     break;
-                case AddTaskDialogFragment.IMPORTANCE_NORMAL:
+                case IMPORTANCE_NORMAL:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
 
                     break;
-                case AddTaskDialogFragment.IMPORTANCE_LOW:
+                case IMPORTANCE_LOW:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_low_rect);
 
                     break;
@@ -106,21 +93,24 @@ public class DoRecyclerListAdapter extends RecyclerView.Adapter<DoRecyclerListAd
             }
 
             img_check.setOnClickListener(v -> {
-                //Todo Image Item Set On Click Listener
-
                 //img_check.setImageResource(R.drawable.shape_checkbox_check);
                 img_check.setBackgroundResource(R.drawable.shape_checkbox_check);
                 img_check.setImageResource(R.drawable.ic_baseline_check_24_white);
-
-                //todo itemView.setSelected(true);
+                eventListener.ImgClickListener(task);
 
             });
             itemView.setOnClickListener(v ->{
-                //Todo Item Set On Click Listener
+                eventListener.ItemClickListener(task);
+
             } );
 
 
         }
+
+    }
+    public interface EventListener{
+        void ItemClickListener(Task task);
+        void ImgClickListener(Task task);
     }
 
 

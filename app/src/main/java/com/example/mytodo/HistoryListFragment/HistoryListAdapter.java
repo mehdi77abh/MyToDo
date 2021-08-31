@@ -1,10 +1,14 @@
-package com.example.mytodo.SecondFragment;
+package com.example.mytodo.HistoryListFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static com.example.mytodo.AddTaskDialog.Const.IMPORTANCE_NORMAL;
+import static com.example.mytodo.AddTaskDialog.Const.IMPORTANCE_HIGH;
+import static com.example.mytodo.AddTaskDialog.Const.IMPORTANCE_LOW;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,11 +19,11 @@ import com.example.mytodo.R;
 
 import java.util.List;
 
-public class DoneRecyclerListAdapter extends RecyclerView.Adapter<DoneRecyclerListAdapter.MyViewHolder> {
+public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.MyViewHolder> {
     private List<Task> doneTasks;
     private DoneListEventListener eventListener ;
 
-    public DoneRecyclerListAdapter(List<Task> doneTasks,DoneListEventListener eventListener) {
+    public HistoryListAdapter(List<Task> doneTasks, DoneListEventListener eventListener) {
         this.doneTasks = doneTasks;
         this.eventListener = eventListener;
     }
@@ -27,7 +31,7 @@ public class DoneRecyclerListAdapter extends RecyclerView.Adapter<DoneRecyclerLi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DoneRecyclerListAdapter.MyViewHolder(LayoutInflater.from(parent.getContext())
+        return new HistoryListAdapter.MyViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_task, parent, false));
     }
 
@@ -35,17 +39,13 @@ public class DoneRecyclerListAdapter extends RecyclerView.Adapter<DoneRecyclerLi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.bindView(doneTasks.get(position));
     }
-    public void deleteTask(Task task) {
-        for (int i = 0; i <doneTasks.size() ; i++) {
-            if (doneTasks.get(i)==task){
-                doneTasks.remove(i);
-                notifyItemRemoved(i);
-            }
-        }
-    }
+
     @Override
     public int getItemCount() {
         return doneTasks.size();
+    }
+    public Task getTask(int pos){
+        return doneTasks.get(pos);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -72,14 +72,14 @@ public class DoneRecyclerListAdapter extends RecyclerView.Adapter<DoneRecyclerLi
             img_check.setImageResource(R.drawable.ic_baseline_check_24_white);
 
             switch (task.getImportance()) {
-                case AddTaskDialogFragment.IMPORTANCE_HIGH:
+                case IMPORTANCE_HIGH:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_high_rect);
                     break;
-                case AddTaskDialogFragment.IMPORTANCE_NORMAL:
+                case IMPORTANCE_NORMAL:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
 
                     break;
-                case AddTaskDialogFragment.IMPORTANCE_LOW:
+                case IMPORTANCE_LOW:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_low_rect);
 
                     break;
@@ -87,12 +87,7 @@ public class DoneRecyclerListAdapter extends RecyclerView.Adapter<DoneRecyclerLi
                     importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
             }
 
-            /*if (task.isComplete()) {
-                txt_title.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                txt_time.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                txt_date.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                container.setBackgroundResource(R.drawable.shape_done_tasks);
-            }*/
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

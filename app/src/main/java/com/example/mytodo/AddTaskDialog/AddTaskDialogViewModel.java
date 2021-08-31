@@ -1,22 +1,19 @@
 package com.example.mytodo.AddTaskDialog;
 
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.Database.TaskDao;
 
-import io.reactivex.Single;
-
 public class AddTaskDialogViewModel extends ViewModel {
-    private TaskDao dao;
+    private TaskDao taskDao ;
 
-    public AddTaskDialogViewModel(TaskDao dao){
+    public AddTaskDialogViewModel(TaskDao taskDao){
+        this.taskDao = taskDao;
 
-        this.dao = dao;
     }
     public void saveTask(Task task){
-        dao.insertTask(task);
+        taskDao.insertTask(task);
     }
 
 }

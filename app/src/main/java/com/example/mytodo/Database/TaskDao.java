@@ -13,23 +13,26 @@ import java.util.List;
 @Dao()
 public interface TaskDao {
     @Insert
-    long insertTask(Task task);
+    void insertTask(Task task);
 
     @Delete
-    int deleteTask(Task task);
+    void deleteTask(Task task);
 
     @Update
-    int updateTask(Task task);
+    void updateTask(Task task);
 
     @Query("SELECT * FROM tbl_tasks")
     LiveData<List<Task>> getTasks();
 
     @Query("SELECT * FROM tbl_tasks WHERE title LIKE :q")
-    List<Task> searchTasks(String q);
+    LiveData<List<Task>> searchTasks(String q);
     //TODO Check Search After
 
-    @Query("DELETE FROM tbl_tasks")
-    void clearAll();
+    @Query("DELETE FROM tbl_tasks Where is_complete =0")
+    void clearAllFromMain();
+
+    @Query("DELETE FROM tbl_tasks Where is_complete =1")
+    void clearAllFromHistory();
 
     @Query("SELECT * FROM tbl_tasks WHERE is_complete = 0")
     LiveData<List<Task>> getNotCompleteTasks();

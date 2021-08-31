@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorToolbar">#794CFF</color>
+    <color name="colorSecondary">#3BE1F1</color>
 
     <color name="black">#262A35</color>
     <color name="white">#FFFFFFFF</color>
@@ -7,6 +9,9 @@
     <color name="gray">#EFEFEF</color>
     <color name="darkGray">#B3B6BE</color>
     <color name="lightGray">#E3E8EE</color>
+    <color name="defaultTextColor">#1D2830</color>
+    <color name="secondaryTextColor">#AFBED0</color>
+    <color name="textColorOnSurface">#E6ffffff</color>
 
     <color name="importance_high">#EA296A</color>
     <color name="importance_normal">#673AB7</color>
