@@ -13,7 +13,7 @@
     <color name="secondaryTextColor">#AFBED0</color>
     <color name="textColorOnSurface">#E6ffffff</color>
 
-    <color name="importance_high">#EA296A</color>
-    <color name="importance_normal">#673AB7</color>
-    <color name="importance_low">#26D4EA</color>
+    <color name="importance_high">#EC0B0B</color>
+    <color name="importance_normal">#E6C418</color>
+    <color name="importance_low">#27CF39</color>
 </resources>

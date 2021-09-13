@@ -1,4 +1,4 @@
-package com.example.mytodo.AddTaskDialog;
+package com.example.mytodo.other;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -6,17 +6,18 @@ import com.google.android.material.timepicker.TimeFormat;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.Calendar;
+
 public class TimePickerProvider {
     private static MaterialTimePicker timePicker;
 
     public static MaterialTimePicker getTimePicker() {
-        DateTimeZone zone = DateTimeZone.forID("Asia/Tehran");
-        DateTime time = new DateTime(zone);
+        Calendar calendar = Calendar.getInstance();
         timePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setTitleText("انتخاب ساعت")
-                .setMinute(time.getMinuteOfHour())
-                .setHour(time.getHourOfDay())
+                .setHour(calendar.get(Calendar.HOUR_OF_DAY))
+                .setMinute(calendar.get(Calendar.MINUTE)+1)
                 .build();
 
         return timePicker;

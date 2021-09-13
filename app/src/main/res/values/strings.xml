@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">لیست من</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="history_list">تاریخچه</string>
+    <string name="add_task">کار جدید</string>
+    <string name="edit_task">ویرایش کار</string>
+
     <string name="delete_all_items_dialog">آیا میخواهید تمام ایتم های این لیست را پاک کنید</string>
 </resources>

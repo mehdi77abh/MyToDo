@@ -10,33 +10,26 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="112dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
         android:background="@drawable/main_toolbar">
 
-
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyToolbar"
+            android:background="@drawable/main_toolbar"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/white"
+            app:menu="@menu/main_toolbar_menu" />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/MyToolbar"
-
-                android:background="@drawable/main_toolbar"
-                app:title="@string/app_name"
-                app:titleTextColor="@color/white"
-                app:menu="@menu/main_toolbar_menu" />
-
-
-        </RelativeLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp">
+            android:layout_height="56dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="4dp">
 
             <EditText
                 android:id="@+id/searchEt"
@@ -50,6 +43,8 @@
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingLeft="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/defaultTextColor"
                 android:textColorHint="@color/secondaryTextColor"
                 android:drawableLeft="@drawable/ic_search_gray_24dp"
@@ -57,7 +52,9 @@
 
             </EditText>
 
-        </FrameLayout>
+
+        </RelativeLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
 

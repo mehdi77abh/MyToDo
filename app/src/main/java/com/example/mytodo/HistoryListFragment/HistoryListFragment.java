@@ -1,6 +1,5 @@
 package com.example.mytodo.HistoryListFragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,15 +22,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mytodo.Database.Task;
-import com.example.mytodo.ListTouchHelper;
+import com.example.mytodo.other.ListTouchHelper;
+import com.example.mytodo.MainFragment.TaskListAdapter;
 import com.example.mytodo.R;
-import com.example.mytodo.ViewModelFactory;
+import com.example.mytodo.other.ViewModelFactory;
 
 import java.util.List;
 
-public class HistoryListFragment extends Fragment implements HistoryListAdapter.DoneListEventListener {
+public class HistoryListFragment extends Fragment implements TaskListAdapter.EventListener {
     private RecyclerView secondRecyclerList;
-    private HistoryListAdapter adapter;
+    private TaskListAdapter adapter;
     private HistoryFragmentViewModel viewModel;
     private Toolbar toolbar;
     private List<Task> taskList;
@@ -48,17 +49,17 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this
+        viewModel = new ViewModelProvider(requireActivity()
                 , new ViewModelFactory(getContext())).get(HistoryFragmentViewModel.class);
         secondRecyclerList = view.findViewById(R.id.recyclerView_second_fragment);
         secondRecyclerList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getCompleteTasks().observe(getViewLifecycleOwner(), tasks -> {
             this.taskList = tasks;
-            adapter = new HistoryListAdapter(tasks, this);
+            adapter = new TaskListAdapter(tasks,false, this);
             secondRecyclerList.setAdapter(adapter);
 
         });
-        ListTouchHelper.getTouchHelper(pos -> {
+        ListTouchHelper.getTouchHelper(getContext(),pos -> {
             viewModel.deleteTask(adapter.getTask(pos));
 
         }).attachToRecyclerView(secondRecyclerList);
@@ -66,18 +67,8 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
     }
 
 
-    @Override
-    public void onImgClickListener(Task selectedTask) {
-        //observe for UnTick Task
-        selectedTask.setComplete(false);
-        viewModel.updateTask(selectedTask);
 
-    }
 
-    @Override
-    public void onItemClickListener(Task selectedTask) {
-        //observe for Edit Task
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -112,5 +103,20 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
 
         }
         return true;
+    }
+
+    @Override
+    public void ItemClickListener(Task task) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedTask",task);
+        Navigation.findNavController(getView()).navigate(R.id.action_HistoryListFragment_to_EditTaskFragment,bundle);
+
+    }
+
+    @Override
+    public void ImgClickListener(Task task) {
+        task.setComplete(false);
+        viewModel.updateTask(task);
+
     }
 }

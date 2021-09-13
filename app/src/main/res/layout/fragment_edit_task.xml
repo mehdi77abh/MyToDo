@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+
+    android:background="@drawable/background_task">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarEditTask"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/editTaskToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/main_toolbar"
+            app:title="@string/edit_task"
+            app:menu="@menu/add_task_toolbar_menu"
+            android:theme="@style/MyToolbar"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/title_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/appbarEditTask">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titleEditEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="موضوع کار مورد نظر را وارد کنید"
+            android:singleLine="true"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/des_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/desEditEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="توضیحات خود را وارد کنید"
+            android:singleLine="true"
+
+            android:textSize="18sp"
+            android:textColor="@color/blue"
+
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/time_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="8dp"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24"
+        app:layout_constraintTop_toBottomOf="@+id/des_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/timeEditEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="ساعت"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:textColor="@color/blue"
+            android:focusable="false"
+            app:layout_constraintTop_toBottomOf="@+id/des_layout" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/date_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/time_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/des_layout"
+        app:startIconDrawable="@drawable/ic_baseline_date_range_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dateEditEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="تاریخ"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:focusable="false"
+
+            android:textColor="@color/blue"
+            app:layout_constraintTop_toBottomOf="@+id/des_layout" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/importance_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_layout">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/importanceLow"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اولویت کم"
+            app:useMaterialThemeColors="true"
+            android:layout_weight="1"
+            android:textColor="@color/importance_low"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time_layout" />
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/importanceNormal"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اولویت عادی"
+            android:layout_weight="1"
+            app:useMaterialThemeColors="true"
+            android:textColor="@color/importance_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time_layout" />
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/importanceHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اولویت بالا"
+            android:layout_weight="1"
+
+            app:useMaterialThemeColors="true"
+            android:textColor="@color/importance_high"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time_layout" />
+
+    </RadioGroup>
+
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/edit_task_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/blue"
+        android:text="ویرایش"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:icon="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

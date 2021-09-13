@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel;
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.Database.TaskDao;
 
-public class AddTaskDialogViewModel extends ViewModel {
+public class AddTaskFragmentViewModel extends ViewModel {
     private TaskDao taskDao ;
 
-    public AddTaskDialogViewModel(TaskDao taskDao){
+    public AddTaskFragmentViewModel(TaskDao taskDao){
         this.taskDao = taskDao;
 
     }

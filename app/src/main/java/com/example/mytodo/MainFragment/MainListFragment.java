@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,16 +26,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mytodo.Database.Task;
-import com.example.mytodo.ListTouchHelper;
+import com.example.mytodo.other.ListTouchHelper;
 import com.example.mytodo.R;
-import com.example.mytodo.ViewModelFactory;
+import com.example.mytodo.other.ViewModelFactory;
 
 import java.util.List;
 
-public class MainListFragment extends Fragment implements MainListAdapter.EventListener {
+public class MainListFragment extends Fragment implements TaskListAdapter.EventListener {
     private static final String TAG = "FirstTabFragment";
     private RecyclerView notDoneList;
-    private MainListAdapter adapter;
+    private TaskListAdapter adapter;
     private View btn_add;
     private Toolbar toolbar;
     private EditText searchEt;
@@ -50,7 +49,7 @@ public class MainListFragment extends Fragment implements MainListAdapter.EventL
         setHasOptionsMenu(true);
         notDoneList = view.findViewById(R.id.recyclerView_first_fragment);
         searchEt = view.findViewById(R.id.searchEt);
-        toolbar = view.findViewById(R.id.toolbar);
+        toolbar = view.findViewById(R.id.main_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         return view;
     }
@@ -69,8 +68,9 @@ public class MainListFragment extends Fragment implements MainListAdapter.EventL
 
         viewModel.getNotCompleteTasks().observe(getViewLifecycleOwner(), tasks -> {
             taskList = tasks;
+
             Log.i(TAG, "onViewCreated: " + tasks);
-            adapter = new MainListAdapter(tasks, this);
+            adapter = new TaskListAdapter(tasks,true, this);
             notDoneList.setAdapter(adapter);
 
         });
@@ -79,8 +79,9 @@ public class MainListFragment extends Fragment implements MainListAdapter.EventL
         btn_add.setOnClickListener(v -> Navigation.findNavController(v)
                 .navigate(R.id.action_firstTabFragment_to_addTaskDialogFragment));
 
-        ListTouchHelper.getTouchHelper(pos -> {
+        ListTouchHelper.getTouchHelper(getContext(),pos -> {
             viewModel.deleteTask(adapter.getTask(pos));
+            //TODO ADD ICON FOR SWIPE DELETE ITEM
 
         }).attachToRecyclerView(notDoneList);
 
@@ -149,6 +150,10 @@ public class MainListFragment extends Fragment implements MainListAdapter.EventL
     public void ItemClickListener(Task task) {
         //Edit And Update task
         //last step
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedTask",task);
+        Navigation.findNavController(getView()).navigate(R.id.action_firstTabFragment_to_editTaskFragment,bundle);
+
 
 
     }
