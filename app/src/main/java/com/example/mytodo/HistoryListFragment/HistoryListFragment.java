@@ -13,6 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,26 +25,34 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mytodo.Database.Task;
+import com.example.mytodo.MainFragment.MainListFragment;
+import com.example.mytodo.alarm.NotificationHelper;
+import com.example.mytodo.databinding.HistoryListFragmentBinding;
 import com.example.mytodo.other.ListTouchHelper;
 import com.example.mytodo.MainFragment.TaskListAdapter;
 import com.example.mytodo.R;
 import com.example.mytodo.other.ViewModelFactory;
 
+import java.util.Calendar;
 import java.util.List;
 
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
+import ir.hamsaa.persiandatepicker.util.PersianHelper;
+
 public class HistoryListFragment extends Fragment implements TaskListAdapter.EventListener {
-    private RecyclerView secondRecyclerList;
     private TaskListAdapter adapter;
     private HistoryFragmentViewModel viewModel;
-    private Toolbar toolbar;
     private List<Task> taskList;
+    private HistoryListFragmentBinding binding;
+    private NotificationHelper notificationHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.history_list_fragment, container, false);
-        toolbar = view.findViewById(R.id.history_toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        binding = HistoryListFragmentBinding.inflate(inflater, container, false);
+        notificationHelper = new NotificationHelper(getContext());
+        View view = binding.getRoot();
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.historyToolbar);
         setHasOptionsMenu(true);
         return view;
     }
@@ -51,23 +62,44 @@ public class HistoryListFragment extends Fragment implements TaskListAdapter.Eve
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()
                 , new ViewModelFactory(getContext())).get(HistoryFragmentViewModel.class);
-        secondRecyclerList = view.findViewById(R.id.recyclerView_second_fragment);
-        secondRecyclerList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.recyclerViewSecondFragment.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getCompleteTasks().observe(getViewLifecycleOwner(), tasks -> {
             this.taskList = tasks;
-            adapter = new TaskListAdapter(tasks,false, this);
-            secondRecyclerList.setAdapter(adapter);
+            adapter = new TaskListAdapter(tasks, false, this);
+            binding.recyclerViewSecondFragment.setAdapter(adapter);
 
         });
-        ListTouchHelper.getTouchHelper(getContext(),pos -> {
+        ListTouchHelper.getTouchHelper(getContext(), pos -> {
             viewModel.deleteTask(adapter.getTask(pos));
 
-        }).attachToRecyclerView(secondRecyclerList);
+        }).attachToRecyclerView(binding.recyclerViewSecondFragment);
 
+        binding.searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s == null)
+                    return;
+                else {
+                    viewModel.searchTasksLive(s.toString()).observe(getViewLifecycleOwner(), tasks -> {
+                        Log.i("TAG", "onViewCreated: " + tasks);
+                        adapter = new TaskListAdapter(tasks, true, HistoryListFragment.this);
+                        binding.recyclerViewSecondFragment.setAdapter(adapter);
+
+                    });
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
-
-
-
 
 
     @Override
@@ -107,16 +139,26 @@ public class HistoryListFragment extends Fragment implements TaskListAdapter.Eve
 
     @Override
     public void ItemClickListener(Task task) {
+        Toast.makeText(getContext(), "رفتن به ویرایش", Toast.LENGTH_SHORT).show();
+
         Bundle bundle = new Bundle();
-        bundle.putParcelable("selectedTask",task);
-        Navigation.findNavController(getView()).navigate(R.id.action_HistoryListFragment_to_EditTaskFragment,bundle);
+        bundle.putParcelable("selectedTask", task);
+        Navigation.findNavController(getView()).navigate(R.id.action_HistoryListFragment_to_EditTaskFragment, bundle);
 
     }
 
     @Override
     public void ImgClickListener(Task task) {
+        if (task.getDateLong() > Calendar.getInstance().getTimeInMillis()) {
+
+            notificationHelper.deleteAlarm(task);
+            notificationHelper.deleteNotification(task);
+
+        }
         task.setComplete(false);
         viewModel.updateTask(task);
+        Toast.makeText(getContext(), "به لیست اضافه شد", Toast.LENGTH_SHORT).show();
+
 
     }
 }

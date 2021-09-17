@@ -1,11 +1,8 @@
 package com.example.mytodo.MainFragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import static com.example.mytodo.other.Const.IMPORTANCE_NORMAL;
 import static com.example.mytodo.other.Const.IMPORTANCE_HIGH;
@@ -16,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.R;
+import com.example.mytodo.databinding.ItemTaskBinding;
 
 import java.util.Calendar;
 import java.util.List;
@@ -27,6 +25,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
     private List<Task> tasks;
     private Boolean showInMain;
     private EventListener eventListener ;
+    private ItemTaskBinding binding;
+
     public TaskListAdapter(List<Task> notDoneTasks, Boolean showInMain, EventListener eventListener) {
         this.tasks = notDoneTasks;
         this.showInMain = showInMain;
@@ -36,13 +36,15 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MyViewHolder(LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_task, viewGroup, false));
+        binding = ItemTaskBinding.inflate(LayoutInflater.from(viewGroup.getContext()),viewGroup,false);
+        View view = binding.getRoot();
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.bindView(tasks.get(i));
+
     }
 
 
@@ -55,21 +57,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView dayTv, dateTv, monthTv , titleTv , desTv ,timeTv;
-        private View importanceView;
-        private ImageView img_check;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            dayTv = itemView.findViewById(R.id.dayTv);
-            dateTv = itemView.findViewById(R.id.dateTv);
-            monthTv = itemView.findViewById(R.id.monthTv);
-            titleTv = itemView.findViewById(R.id.titleTv);
-            desTv = itemView.findViewById(R.id.descriptionTv);
-            timeTv = itemView.findViewById(R.id.timeTv);
-            importanceView = itemView.findViewById(R.id.importanceView);
-            img_check = itemView.findViewById(R.id.img_check);
-
         }
 
 
@@ -79,58 +69,58 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
             PersianDateImpl persianDate =new PersianDateImpl();
             persianDate.setDate(task.getDateLong());
 
-            titleTv.setText(task.getTitle());
-            desTv.setText(task.getDescription());
-            timeTv.setText(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
+            binding.titleTv.setText(task.getTitle());
+            binding.descriptionTv.setText(task.getDescription());
+            binding.timeTv.setText(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
 
-            dayTv.setText(persianDate.getPersianDayOfWeekName());
-            Log.i("bindView", "bindView: "+calendar.getTime().toString());
-            Log.i("bindView", "bindView: "+persianDate.getPersianLongDate());
+            binding.dayTv.setText(persianDate.getPersianDayOfWeekName());
             String number =PersianHelper.toPersianNumber(String.valueOf(persianDate.getPersianDay()));
-            dateTv.setText(number);
-            monthTv.setText(persianDate.getPersianMonthName());
+            binding.dateTv.setText(number);
+            binding.monthTv.setText(persianDate.getPersianMonthName());
 
             if (showInMain)
-            img_check.setImageResource(R.drawable.shape_checkbox_default);
+            binding.imgCheck.setImageResource(R.drawable.shape_checkbox_default);
             else {
-                img_check.setBackgroundResource(R.drawable.shape_checkbox_check);
-                img_check.setImageResource(R.drawable.ic_baseline_check_24_white);
+                binding.imgCheck.setBackgroundResource(R.drawable.shape_checkbox_check);
+                binding.imgCheck.setImageResource(R.drawable.ic_baseline_check_24_white);
             }
 
 
             switch (task.getImportance()) {
                 case IMPORTANCE_HIGH:
-                    importanceView.setBackgroundResource(R.drawable.shape_importance_high_rect);
+                    binding.importanceView.setBackgroundResource(R.drawable.shape_importance_high_rect);
                     break;
                 case IMPORTANCE_NORMAL:
-                    importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
+                    binding.importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
 
                     break;
                 case IMPORTANCE_LOW:
-                    importanceView.setBackgroundResource(R.drawable.shape_importance_low_rect);
+                    binding.importanceView.setBackgroundResource(R.drawable.shape_importance_low_rect);
 
                     break;
                 default:
-                    importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
+                    binding.importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
 
 
             }
 
-            img_check.setOnClickListener(v -> {
+            binding.imgCheck.setOnClickListener(v -> {
                 if (showInMain){
-                    img_check.setBackgroundResource(R.drawable.shape_checkbox_check);
-                    img_check.setImageResource(R.drawable.ic_baseline_check_24_white);
+                    binding.imgCheck.setBackgroundResource(R.drawable.shape_checkbox_check);
+                    binding.imgCheck.setImageResource(R.drawable.ic_baseline_check_24_white);
 
                 }else {
-                    img_check.setImageResource(R.drawable.shape_checkbox_default);
-                    img_check.setBackgroundResource(0);
+
+                    binding.imgCheck.setImageResource(R.drawable.shape_checkbox_default);
+                    binding.imgCheck.setBackgroundResource(0);
                 }
                     eventListener.ImgClickListener(task);
 
             });
-            itemView.setOnClickListener(v ->{
+            itemView.setOnLongClickListener(v ->{
                 eventListener.ItemClickListener(task);
 
+                return false;
             } );
 
 

@@ -6,8 +6,8 @@
     app:cardUseCompatPadding="true"
     app:cardElevation="5dp"
     app:cardCornerRadius="10dp"
-    app:contentPadding="10dp"
-    android:layout_height="180dp">
+    app:contentPadding="6dp"
+    android:layout_height="160dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/date_container"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
 
             android:orientation="vertical"
@@ -34,15 +34,16 @@
 
             <TextView
                 android:id="@+id/dayTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="16dp"
                 android:alpha="0.8"
+            android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="چهارشنبه"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
+
+                app:layout_constraintBottom_toTopOf="@+id/dateTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,32 +53,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/primary_bold"
                 android:gravity="center"
-
                 android:text="22"
                 android:textColor="@color/blue"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/monthTv"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dayTv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/monthTv"
-                android:layout_width="80dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:alpha="0.8"
                 android:gravity="center"
                 android:text="اردیبهشت"
-            android:layout_marginBottom="16dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateTv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -108,26 +108,29 @@
                 android:id="@+id/titleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:fontFamily="@font/primary_bold"
+                android:maxLength="20"
                 android:text="درس باید بخوانم"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginStart="8dp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/descriptionTv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:alpha=".8"
-                android:lines="1"
+                android:lines="2"
                 android:maxLength="30"
-                android:singleLine="true"
                 android:text="درس برنامه نویسی اندروید بخش لیست ها"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/img_check"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleTv" />
 
@@ -135,19 +138,21 @@
                 android:id="@+id/timeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="4dp"
                 android:gravity="center"
                 android:text="20:20"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTv" />
 
 
             <ImageView
                 android:id="@+id/img_check"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

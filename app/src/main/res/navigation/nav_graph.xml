@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/addTaskDialogFragment"
-        android:name="com.example.mytodo.AddTaskDialog.AddTaskFragment"
+        android:name="com.example.mytodo.AddTaskFragment.AddTaskFragment"
         android:label="AddTaskDialogFragment" >
         <action
             android:id="@+id/action_addTaskDialogFragment_to_firstTabFragment"

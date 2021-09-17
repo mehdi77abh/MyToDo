@@ -1,6 +1,7 @@
 package com.example.mytodo.MainFragment;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mytodo.Database.Task;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class MainFragmentViewModel extends ViewModel {
     private TaskDao taskDao;
+    private MutableLiveData<List<Task>> searchedTasks = new MutableLiveData<>();
     public MainFragmentViewModel(TaskDao taskDao) {
         this.taskDao = taskDao;
 
@@ -29,21 +31,12 @@ public class MainFragmentViewModel extends ViewModel {
     }
 
     public LiveData<List<Task>> getNotCompleteTasks() {
-        return taskDao.getNotCompleteTasks();
+        return taskDao.getNotCompleteTasksList();
     }
     //search
+    public LiveData<List<Task>> searchTasksLive(String q){
+        return taskDao.searchTasksHistory(q);
+    }
 
-/*
-    //updateTasksStatus
-    public void updateAllTasksStatus() {
-       List<Task> tasks = taskDao.getNotCompleteTasksList();
-        if (tasks.size()>0){
-            taskDao.insertAllTasks(MyFunctions.updateTasksStatus(tasks));
-            Log.i("TAG", "updateAllTasks: "+tasks);
-
-        }else
-            Log.i("TAG", "Null: ");
-
-    }*/
 
 }

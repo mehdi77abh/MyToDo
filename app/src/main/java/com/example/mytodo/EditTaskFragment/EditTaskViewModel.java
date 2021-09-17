@@ -15,9 +15,12 @@ public class EditTaskViewModel extends ViewModel {
 
 
     public void editTask(Task task) {
+        //UpdateNotify
         taskDao.updateTask(task);
+
     }
     public void deleteTask(Task task){
+        //DeleteNotify
         taskDao.deleteTask(task);
     }
 }

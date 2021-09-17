@@ -6,10 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mytodo.AddTaskDialog.AddTaskFragmentViewModel;
+import com.example.mytodo.AddTaskFragment.AddTaskFragmentViewModel;
 import com.example.mytodo.Database.TaskDao;
 import com.example.mytodo.Database.TaskDatabaseProvider;
-import com.example.mytodo.EditTaskFragment.EditTaskFragment;
 import com.example.mytodo.EditTaskFragment.EditTaskViewModel;
 import com.example.mytodo.MainFragment.MainFragmentViewModel;
 import com.example.mytodo.HistoryListFragment.HistoryFragmentViewModel;

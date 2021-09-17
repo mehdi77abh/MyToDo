@@ -22,6 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         lottie = findViewById(R.id.splashScreen);
         lottie.setMinAndMaxFrame(1,90);
+
         lottie.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

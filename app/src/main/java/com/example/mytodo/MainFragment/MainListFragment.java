@@ -1,13 +1,19 @@
 package com.example.mytodo.MainFragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,70 +28,62 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mytodo.Database.Task;
+import com.example.mytodo.alarm.NotificationHelper;
+import com.example.mytodo.databinding.MainListFragmentBinding;
 import com.example.mytodo.other.ListTouchHelper;
 import com.example.mytodo.R;
 import com.example.mytodo.other.ViewModelFactory;
 
 import java.util.List;
 
-public class MainListFragment extends Fragment implements TaskListAdapter.EventListener {
+public class MainListFragment extends Fragment implements MainTaskAdapter.EventListener {
     private static final String TAG = "FirstTabFragment";
-    private RecyclerView notDoneList;
-    private TaskListAdapter adapter;
-    private View btn_add;
-    private Toolbar toolbar;
-    private EditText searchEt;
+    private MainTaskAdapter adapter;
     private MainFragmentViewModel viewModel;
     private List<Task> taskList;
+    private NotificationHelper notificationHelper;
+    private MainListFragmentBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_list_fragment, container, false);
+
+        binding = MainListFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        notificationHelper = new NotificationHelper(getContext());
         setHasOptionsMenu(true);
-        notDoneList = view.findViewById(R.id.recyclerView_first_fragment);
-        searchEt = view.findViewById(R.id.searchEt);
-        toolbar = view.findViewById(R.id.main_toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.mainToolbar);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btn_add = view.findViewById(R.id.btn_add_new_task_main);
-        notDoneList = view.findViewById(R.id.recyclerView_first_fragment);
 
-        viewModel = new ViewModelProvider(this
+        viewModel = new ViewModelProvider(requireActivity()
                 , new ViewModelFactory(getContext()))
                 .get(MainFragmentViewModel.class);
 
-        notDoneList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        binding.recyclerViewFirstFragment.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         viewModel.getNotCompleteTasks().observe(getViewLifecycleOwner(), tasks -> {
             taskList = tasks;
+            adapter = new MainTaskAdapter(tasks,this);
+            binding.recyclerViewFirstFragment.setAdapter(adapter);
 
-            Log.i(TAG, "onViewCreated: " + tasks);
-            adapter = new TaskListAdapter(tasks,true, this);
-            notDoneList.setAdapter(adapter);
 
         });
 
-
-        btn_add.setOnClickListener(v -> Navigation.findNavController(v)
-                .navigate(R.id.action_firstTabFragment_to_addTaskDialogFragment));
-
-        ListTouchHelper.getTouchHelper(getContext(),pos -> {
-            viewModel.deleteTask(adapter.getTask(pos));
-            //TODO ADD ICON FOR SWIPE DELETE ITEM
-
-        }).attachToRecyclerView(notDoneList);
-
-        searchEt.addTextChangedListener(new TextWatcher() {
+        binding.searchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -93,7 +91,16 @@ public class MainListFragment extends Fragment implements TaskListAdapter.EventL
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //if for s that it empty or not
+                if (s == null)
+                    return;
+                else {
+                    viewModel.searchTasksLive(s.toString()).observe(getViewLifecycleOwner(), tasks -> {
+                        Log.i(TAG, "onViewCreated: " + tasks);
+                        adapter = new MainTaskAdapter(tasks,MainListFragment.this);
+                        binding.recyclerViewFirstFragment.setAdapter(adapter);
+
+                    });
+                }
             }
 
             @Override
@@ -101,6 +108,19 @@ public class MainListFragment extends Fragment implements TaskListAdapter.EventL
 
             }
         });
+
+
+        binding.btnAddNewTaskMain.setOnClickListener(v -> Navigation.findNavController(v)
+                .navigate(R.id.action_firstTabFragment_to_addTaskDialogFragment));
+
+        ListTouchHelper.getTouchHelper(getContext(), pos -> {
+            notificationHelper.deleteAlarm(adapter.getTask(pos));
+            notificationHelper.deleteNotification(adapter.getTask(pos));
+            Toast.makeText(getContext(), "کار پاک شد", Toast.LENGTH_SHORT).show();
+            viewModel.deleteTask(adapter.getTask(pos));
+
+        }).attachToRecyclerView(binding.recyclerViewFirstFragment);
+
 
     }
 
@@ -150,17 +170,24 @@ public class MainListFragment extends Fragment implements TaskListAdapter.EventL
     public void ItemClickListener(Task task) {
         //Edit And Update task
         //last step
+        Log.i(TAG, "ItemClickListener: " + task.getTitle());
         Bundle bundle = new Bundle();
-        bundle.putParcelable("selectedTask",task);
-        Navigation.findNavController(getView()).navigate(R.id.action_firstTabFragment_to_editTaskFragment,bundle);
+        bundle.putParcelable("selectedTask", task);
+        Toast.makeText(getContext(), "ویرایش کار", Toast.LENGTH_SHORT).show();
 
+        Navigation.findNavController(getView()).navigate(R.id.action_firstTabFragment_to_editTaskFragment, bundle);
 
 
     }
 
     @Override
     public void ImgClickListener(Task task) {
+        Log.i(TAG, "ItemClickListener: " + task.getTitle());
+
+        Toast.makeText(getContext(), "انجام شد", Toast.LENGTH_SHORT).show();
+        notificationHelper.deleteNotification(task);
         task.setComplete(!task.isComplete());
         viewModel.updateTask(task);
     }
+
 }

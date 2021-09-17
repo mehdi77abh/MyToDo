@@ -30,6 +30,9 @@ public class HistoryFragmentViewModel extends ViewModel {
     public void deleteTask(Task task){
         taskDao.deleteTask(task);
     }
+    public LiveData<List<Task>> searchTasksLive(String q){
+        return taskDao.searchTasksMain(q);
+    }
 
     
 }

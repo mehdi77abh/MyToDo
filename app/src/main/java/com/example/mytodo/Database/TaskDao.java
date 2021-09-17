@@ -1,7 +1,6 @@
 package com.example.mytodo.Database;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -26,15 +25,18 @@ public interface TaskDao {
     void updateTask(Task task);
 
 
-
     @Query("DELETE FROM tbl_tasks Where is_complete =0")
     void clearAllFromMain();
 
     @Query("DELETE FROM tbl_tasks Where is_complete =1")
     void clearAllFromHistory();
 
-    @Query("SELECT * FROM tbl_tasks WHERE title LIKE :q")
-    LiveData<List<Task>> searchTasks(String q);
+    @Query("SELECT * FROM tbl_tasks WHERE is_complete = 0 AND title LIKE '%' || :q || '%' ORDER BY dateLong")
+    LiveData<List<Task>> searchTasksMain(String q);
+
+    @Query("SELECT * FROM tbl_tasks WHERE is_complete = 1 AND title LIKE '%' || :q || '%' ORDER BY dateLong")
+    LiveData<List<Task>> searchTasksHistory(String q);
+
     //TODO Check Search After
 
     //get List For Main List
@@ -47,7 +49,7 @@ public interface TaskDao {
 
     //get List For Status Check
     @Query("SELECT * FROM tbl_tasks WHERE is_complete = 0")
-    List<Task> getNotCompleteTasksList();
+    LiveData<List<Task>> getNotCompleteTasksList();
 
 
 }

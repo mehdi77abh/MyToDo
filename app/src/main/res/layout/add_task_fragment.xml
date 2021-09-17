@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
+    android:layoutDirection="rtl">
 
-    android:background="@drawable/background_task">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarAddTask"
@@ -17,14 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/addTaskToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/main_toolbar"
-            app:title="@string/add_task"
+            android:theme="@style/MyToolbar"
             app:menu="@menu/add_task_toolbar_menu"
-            android:theme="@style/MyToolbar"/>
+            app:title="@string/add_task" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -72,8 +71,8 @@
             android:hint="توضیحات خود را وارد کنید"
             android:singleLine="true"
 
-            android:textSize="18sp"
             android:textColor="@color/blue"
+            android:textSize="18sp"
 
             />
 
@@ -86,24 +85,23 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="8dp"
-        app:startIconDrawable="@drawable/ic_baseline_access_time_24"
-        app:layout_constraintTop_toBottomOf="@+id/des_layout">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/des_layout"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/timeEditEt"
+            android:id="@+id/timeAddEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
             android:hint="ساعت"
-            android:textSize="18sp"
             android:singleLine="true"
             android:textColor="@color/blue"
-            android:focusable="false"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/des_layout" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/date_layout"
@@ -111,72 +109,73 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/time_layout"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/time_layout"
         app:layout_constraintTop_toBottomOf="@+id/des_layout"
         app:startIconDrawable="@drawable/ic_baseline_date_range_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dateEditEt"
+            android:id="@+id/dateAddEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="تاریخ"
-            android:textSize="18sp"
-            android:singleLine="true"
+            android:layout_height="wrap_content"
             android:focusable="false"
-
+            android:hint="تاریخ"
             android:textColor="@color/blue"
+
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/des_layout" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <RadioGroup
         android:id="@+id/importance_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:orientation="vertical"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_layout">
+        app:layout_constraintTop_toBottomOf="@+id/time_layout">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/importanceLow"
+            android:id="@+id/add_importance_low"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اولویت کم"
-            app:useMaterialThemeColors="true"
             android:layout_weight="1"
+            android:text="اولویت کم"
             android:textColor="@color/importance_low"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/time_layout"
+            app:useMaterialThemeColors="true" />
+
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/importanceNormal"
+            android:id="@+id/add_importance_normal"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اولویت عادی"
             android:layout_weight="1"
-        app:useMaterialThemeColors="true"
+            android:text="اولویت عادی"
             android:textColor="@color/importance_normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/time_layout"
+            app:useMaterialThemeColors="true" />
+
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/importanceHigh"
+            android:id="@+id/add_importance_high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اولویت بالا"
             android:layout_weight="1"
+            android:text="اولویت بالا"
 
-            app:useMaterialThemeColors="true"
             android:textColor="@color/importance_high"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/time_layout"
+            app:useMaterialThemeColors="true" />
 
     </RadioGroup>
-
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
