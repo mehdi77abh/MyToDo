@@ -1,11 +1,10 @@
-package com.example.mytodo.EditTaskFragment;
+package com.example.mytodo.editTaskFragment;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -16,19 +15,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.mytodo.alarm.NotificationHelper;
 import com.example.mytodo.databinding.FragmentEditTaskBinding;
+import com.example.mytodo.main.MainViewModel;
 import com.example.mytodo.other.DatePickerProvider;
 import com.example.mytodo.other.TimePickerProvider;
 import com.example.mytodo.other.Const;
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.R;
 import com.example.mytodo.other.ViewModelFactory;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
 import java.util.Calendar;
@@ -39,7 +36,7 @@ import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 
 public class EditTaskFragment extends Fragment implements PersianPickerListener {
     private Calendar mCalender = Calendar.getInstance();
-    private EditTaskViewModel viewModel;
+    private MainViewModel viewModel;
     private Task task, selectedTask;
     private FragmentEditTaskBinding binding;
     private NotificationHelper notificationHelper;
@@ -87,7 +84,7 @@ public class EditTaskFragment extends Fragment implements PersianPickerListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()
-                , new ViewModelFactory(getContext())).get(EditTaskViewModel.class);
+                , new ViewModelFactory(getContext())).get(MainViewModel.class);
         task = new Task();
         binding.timeEditEt.setOnClickListener(v -> {
             MaterialTimePicker materialTimePicker = TimePickerProvider.getTimePicker();
@@ -140,7 +137,7 @@ public class EditTaskFragment extends Fragment implements PersianPickerListener 
                 notificationHelper.deleteNotification(task);
                 notificationHelper.deleteAlarm(task);
                 notificationHelper.setAlarm(task);
-                viewModel.editTask(task);
+                viewModel.updateTask(task);
                 Toast.makeText(getContext(), "کار ویرایش شد", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getView()).navigate(R.id.action_EditTaskFragment_to_MainListFragmnet);
             }

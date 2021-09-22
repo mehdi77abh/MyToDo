@@ -23,12 +23,16 @@ public class NotificationHelper {
         intent.putExtra("title",task.getTitle());
         intent.putExtra("des",task.getDescription());
         intent.putExtra("id",task.getNotificationId());
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) task.getNotificationId()
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context
+                , (int) task.getNotificationId()
                 , intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,task.getDateLong(), pendingIntent);
+
         Log.i("TAG", "Alarm Create ");
     }
+
     public void deleteNotification(Task task){
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

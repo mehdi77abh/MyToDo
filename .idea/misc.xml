@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Dev/Workspace/Andriod/MyTodo/app/src/main/res/layout/activity_main.xml" value="0.19202898550724637" />
+        <entry key="..\:/Dev/Workspace/Andriod/MyTodo/app/src/main/res/layout/history_list_fragment.xml" value="0.25" />
         <entry key="..\:/Dev/Workspace/Andriod/MyTodo/app/src/main/res/layout/item_task.xml" value="0.33" />
         <entry key="..\:/Dev/Workspace/Andriod/MyTodo/app/src/main/res/layout/main_list_fragment.xml" value="0.25" />
       </map>

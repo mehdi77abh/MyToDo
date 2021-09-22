@@ -1,14 +1,15 @@
-package com.example.mytodo.MainFragment;
+package com.example.mytodo.historyListFragment;
 
-import static com.example.mytodo.other.Const.IMPORTANCE_HIGH;
-import static com.example.mytodo.other.Const.IMPORTANCE_LOW;
-import static com.example.mytodo.other.Const.IMPORTANCE_NORMAL;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static com.example.mytodo.other.Const.IMPORTANCE_NORMAL;
+import static com.example.mytodo.other.Const.IMPORTANCE_HIGH;
+import static com.example.mytodo.other.Const.IMPORTANCE_LOW;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.R;
 import com.example.mytodo.databinding.ItemTaskBinding;
+import com.example.mytodo.mainListFragment.MainTaskAdapter;
 
 import java.util.Calendar;
 import java.util.List;
@@ -23,35 +25,37 @@ import java.util.List;
 import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import ir.hamsaa.persiandatepicker.util.PersianHelper;
 
-public class MainTaskAdapter extends RecyclerView.Adapter<MainTaskAdapter.MyViewHolder> {
-    private List<Task> notDoneTasks;
-    private MainTaskAdapter.EventListener eventListener ;
+public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.MyViewHolder> {
+    private List<Task> tasks;
+    private EventListener eventListener;
 
-    public MainTaskAdapter(List<Task> notDoneTasks,MainTaskAdapter.EventListener eventListener) {
-        this.notDoneTasks = notDoneTasks;
-        this.eventListener =eventListener;
+    public HistoryListAdapter(List<Task> doneTasks, EventListener eventListener) {
+        this.tasks = doneTasks;
+        this.eventListener = eventListener;
     }
 
     @NonNull
     @Override
-    public MainTaskAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_task,parent,false
-        ));
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        return new HistoryListAdapter.MyViewHolder(LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_task,viewGroup,false
+                ));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainTaskAdapter.MyViewHolder holder, int position) {
-    holder.bindView(notDoneTasks.get(position));
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+        myViewHolder.bindView(tasks.get(position));
+
     }
+
 
     @Override
     public int getItemCount() {
-        return notDoneTasks.size();
+        return tasks.size();
     }
 
     public Task getTask(int pos) {
-        return notDoneTasks.get(pos);
+        return tasks.get(pos);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -61,6 +65,7 @@ public class MainTaskAdapter extends RecyclerView.Adapter<MainTaskAdapter.MyView
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
             dayTv = itemView.findViewById(R.id.dayTv);
             dateTv = itemView.findViewById(R.id.dateTv);
             monthTv = itemView.findViewById(R.id.monthTv);
@@ -70,6 +75,7 @@ public class MainTaskAdapter extends RecyclerView.Adapter<MainTaskAdapter.MyView
             importanceView = itemView.findViewById(R.id.importanceView);
             imgCheck = itemView.findViewById(R.id.img_check);
         }
+
 
         private void bindView(Task task) {
             Calendar calendar = Calendar.getInstance();
@@ -86,7 +92,8 @@ public class MainTaskAdapter extends RecyclerView.Adapter<MainTaskAdapter.MyView
             dateTv.setText(number);
             monthTv.setText(persianDate.getPersianMonthName());
 
-            imgCheck.setImageResource(R.drawable.shape_checkbox_default);
+            imgCheck.setBackgroundResource(R.drawable.shape_checkbox_check);
+            imgCheck.setImageResource(R.drawable.ic_baseline_check_24_white);
 
 
             switch (task.getImportance()) {
@@ -103,14 +110,13 @@ public class MainTaskAdapter extends RecyclerView.Adapter<MainTaskAdapter.MyView
                     break;
                 default:
                     importanceView.setBackgroundResource(R.drawable.shape_importance_normal_rect);
-
-
             }
 
-            imgCheck.setOnClickListener(v -> {
-                imgCheck.setBackgroundResource(R.drawable.shape_checkbox_check);
-                imgCheck.setImageResource(R.drawable.ic_baseline_check_24_white);
 
+            imgCheck.setOnClickListener(v -> {
+            imgCheck.setImageResource(R.drawable.shape_checkbox_default);
+            imgCheck.setBackgroundResource(0);
+                Log.i("TAG", "bindView: "+getAdapterPosition());
                 eventListener.ImgClickListener(task);
 
             });
@@ -121,12 +127,14 @@ public class MainTaskAdapter extends RecyclerView.Adapter<MainTaskAdapter.MyView
                 return false;
             });
 
-
         }
+
     }
-    public interface EventListener{
+
+    public interface EventListener {
         void ItemClickListener(Task task);
         void ImgClickListener(Task task);
     }
+
 
 }

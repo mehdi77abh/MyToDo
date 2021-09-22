@@ -15,9 +15,14 @@ public class MainViewModel extends ViewModel {
 
         this.taskDao = taskDao;
     }
+    public void saveTask(Task task){
+        taskDao.insertTask(task);
+    }
+
     public LiveData<List<Task>> getNotCompleteTasks() {
         return taskDao.getNotCompleteTasksList();
     }
+
     public LiveData<List<Task>> getCompleteTasks(){
         return taskDao.getCompleteTasks();
     }
@@ -38,8 +43,6 @@ public class MainViewModel extends ViewModel {
     public void clearTasksMain() {
         taskDao.clearAllFromMain();
     }
-
-
 
     //search
     public LiveData<List<Task>> searchTasksHistory(String q){

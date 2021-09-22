@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    tools:context=".MainFragment.MainListFragment">
+    tools:context=".mainListFragment.MainListFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -67,19 +67,40 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
         <!-- Scrollable content -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_first_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_task"
          />
 
     </androidx.core.widget.NestedScrollView>
 
 
+    <LinearLayout
+        android:id="@+id/emptyStateContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/emptyStateImg"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/empty_state"
+            />
+        <TextView
+            android:textColor="@color/blue"
+            android:text="یک کار جدید اضاف کنید"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"/>
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_add_new_task_main"

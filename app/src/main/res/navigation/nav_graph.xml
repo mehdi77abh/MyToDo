@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/MainListFragmnet"
-        android:name="com.example.mytodo.MainFragment.MainListFragment"
+        android:name="com.example.mytodo.mainListFragment.MainListFragment"
         android:label="fragment_first_tab"
         tools:layout="@layout/main_list_fragment" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/HistoryListFragment"
-        android:name="com.example.mytodo.HistoryListFragment.HistoryListFragment"
+        android:name="com.example.mytodo.historyListFragment.HistoryListFragment"
         android:label="fragment_list_history"
         tools:layout="@layout/history_list_fragment" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/EditTaskFragment"
-        android:name="com.example.mytodo.EditTaskFragment.EditTaskFragment"
+        android:name="com.example.mytodo.editTaskFragment.EditTaskFragment"
         android:label="fragment_edit_task"
         tools:layout="@layout/fragment_edit_task" >
         <action

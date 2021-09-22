@@ -26,12 +26,12 @@ public class AlarmService extends BroadcastReceiver {
         String des =intent.getStringExtra("des");
         int id = (int) intent.getLongExtra("id",0);
         Intent resultIntent = new Intent(context, MainActivity.class);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         //Date.Time
         PendingIntent pendingIntent =PendingIntent.getActivity(context
                 , id, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             Log.i("TAG", "createNotificationChannel: Done ");
 

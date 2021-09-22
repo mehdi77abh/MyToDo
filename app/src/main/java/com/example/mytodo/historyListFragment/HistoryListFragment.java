@@ -1,4 +1,4 @@
-package com.example.mytodo.HistoryListFragment;
+package com.example.mytodo.historyListFragment;
 
 import android.os.Bundle;
 
@@ -6,12 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,24 +22,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mytodo.Database.Task;
-import com.example.mytodo.MainFragment.MainListFragment;
 import com.example.mytodo.alarm.NotificationHelper;
 import com.example.mytodo.databinding.HistoryListFragmentBinding;
+import com.example.mytodo.main.MainViewModel;
 import com.example.mytodo.other.ListTouchHelper;
-import com.example.mytodo.MainFragment.TaskListAdapter;
 import com.example.mytodo.R;
 import com.example.mytodo.other.ViewModelFactory;
 
 import java.util.Calendar;
 import java.util.List;
 
-import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
-import ir.hamsaa.persiandatepicker.util.PersianHelper;
-
-public class HistoryListFragment extends Fragment implements TaskListAdapter.EventListener {
-    private TaskListAdapter adapter;
-    private HistoryFragmentViewModel viewModel;
+public class HistoryListFragment extends Fragment implements HistoryListAdapter.EventListener {
+    private HistoryListAdapter adapter;
+    private MainViewModel viewModel;
     private List<Task> taskList;
     private HistoryListFragmentBinding binding;
     private NotificationHelper notificationHelper;
@@ -61,11 +56,16 @@ public class HistoryListFragment extends Fragment implements TaskListAdapter.Eve
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()
-                , new ViewModelFactory(getContext())).get(HistoryFragmentViewModel.class);
+                , new ViewModelFactory(getContext())).get(MainViewModel.class);
         binding.recyclerViewSecondFragment.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        Glide.with(getContext()).load(R.drawable.empty_box).into(binding.historyEmptyStateImg);
         viewModel.getCompleteTasks().observe(getViewLifecycleOwner(), tasks -> {
             this.taskList = tasks;
-            adapter = new TaskListAdapter(tasks, false, this);
+            if (tasks.size() > 0)
+                binding.historyEmptyStateContainer.setVisibility(View.GONE);
+            else
+                binding.historyEmptyStateContainer.setVisibility(View.VISIBLE);
+            adapter = new HistoryListAdapter(tasks, this);
             binding.recyclerViewSecondFragment.setAdapter(adapter);
 
         });
@@ -85,9 +85,9 @@ public class HistoryListFragment extends Fragment implements TaskListAdapter.Eve
                 if (s == null)
                     return;
                 else {
-                    viewModel.searchTasksLive(s.toString()).observe(getViewLifecycleOwner(), tasks -> {
+                    viewModel.searchTasksHistory(s.toString()).observe(getViewLifecycleOwner(), tasks -> {
                         Log.i("TAG", "onViewCreated: " + tasks);
-                        adapter = new TaskListAdapter(tasks, true, HistoryListFragment.this);
+                        adapter = new HistoryListAdapter(tasks, HistoryListFragment.this);
                         binding.recyclerViewSecondFragment.setAdapter(adapter);
 
                     });
@@ -118,10 +118,9 @@ public class HistoryListFragment extends Fragment implements TaskListAdapter.Eve
             if (taskList.size() > 0) {
                 new AlertDialog.Builder(getContext())
                         .setTitle("پاک کردن")
-
                         .setMessage(R.string.delete_all_items_dialog)
                         .setPositiveButton("آره", (dialog, which) -> {
-                            viewModel.clearAll();
+                            viewModel.clearTasksHistory();
                             Toast.makeText(getContext(), "کل لیست پاک شد", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         })

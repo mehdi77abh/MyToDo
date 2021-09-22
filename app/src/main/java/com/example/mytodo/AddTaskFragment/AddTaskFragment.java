@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mytodo.alarm.NotificationHelper;
 import com.example.mytodo.databinding.AddTaskFragmentBinding;
+import com.example.mytodo.main.MainViewModel;
 import com.example.mytodo.other.Const;
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.R;
@@ -34,7 +35,7 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
 
     private static final String TAG = "AddTaskDialogFragment";
     private MaterialTimePicker timePicker;
-    private AddTaskFragmentViewModel viewModel;
+    private MainViewModel viewModel;
     private Calendar mCalender;
     private NotificationHelper notificationHelper;
     private Task task;
@@ -51,7 +52,7 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
 
         mCalender = Calendar.getInstance();
         viewModel = new ViewModelProvider(requireActivity()
-                , new ViewModelFactory(getContext())).get(AddTaskFragmentViewModel.class);
+                , new ViewModelFactory(getContext())).get(MainViewModel.class);
 
         return view;
     }
