@@ -1,4 +1,4 @@
-package com.example.mytodo.AddTaskFragment;
+package com.example.mytodo.mainListFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,8 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mytodo.Database.Group;
 import com.example.mytodo.alarm.NotificationHelper;
-import com.example.mytodo.databinding.AddTaskFragmentBinding;
+import com.example.mytodo.databinding.FragmentAddTaskBinding;
 import com.example.mytodo.main.MainViewModel;
 import com.example.mytodo.other.Const;
 import com.example.mytodo.Database.Task;
@@ -39,12 +40,16 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
     private Calendar mCalender;
     private NotificationHelper notificationHelper;
     private Task task;
-    private AddTaskFragmentBinding binding;
+    private FragmentAddTaskBinding binding;
+    private Group selectedGroup;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = AddTaskFragmentBinding.inflate(inflater, container, false);
+        getActivity().findViewById(R.id.bottomNavigationView).setVisibility(View.GONE);
+
+        binding = FragmentAddTaskBinding.inflate(inflater, container, false);
+
         View view = binding.getRoot();
         notificationHelper = new NotificationHelper(getContext());
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.addTaskToolbar);
@@ -61,7 +66,7 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         task = new Task();
-
+        selectedGroup = getArguments().getParcelable("selectedGroup");
         binding.dateAddEt.setOnClickListener(v -> DatePickerProvider.getDatePicker(getContext())
                 .setListener(AddTaskFragment.this).show());
 
@@ -93,7 +98,7 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
 
             }
         });
-        view.findViewById(R.id.edit_task_btn).setOnClickListener(v -> {
+        binding.addTaskBtn.setOnClickListener(v -> {
 
             if (binding.titleEditEt.getText().length() == 0) {
                 binding.titleLayout.setError("لطفا متن کار خود را وارد کنید");
@@ -113,7 +118,7 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
                 task.setNotificationId(task.getId());
                 notificationHelper.setAlarm(task);
                 Toast.makeText(getContext(), "اضافه شد.", Toast.LENGTH_SHORT).show();
-
+                task.setGroupId(selectedGroup.getGroupId());
                 viewModel.saveTask(task);
                 getActivity().onBackPressed();
             }
@@ -155,8 +160,16 @@ public class AddTaskFragment extends Fragment implements PersianPickerListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (R.id.menu_back == item.getItemId()) {
             getActivity().onBackPressed();
+
         }
         return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().findViewById(R.id.bottomNavigationView).setVisibility(View.VISIBLE);
 
     }
 }

@@ -22,12 +22,12 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/history_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/MyToolbar"
+                android:layout_height="54dp"
                 android:background="@drawable/main_toolbar"
+                android:theme="@style/MyToolbar"
+                app:menu="@menu/history_toolbar_menu"
                 app:title="@string/history_list"
-                app:titleTextColor="@color/white"
-                app:menu="@menu/history_toolbar_menu" />
+                app:titleTextColor="@color/white" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -37,22 +37,22 @@
 
                 <EditText
                     android:id="@+id/searchEt"
-                    android:textSize="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/background_edit_text"
-                    android:hint="جستجو..."
+                    android:drawableLeft="@drawable/ic_search_gray_24dp"
                     android:drawablePadding="8dp"
+                    android:hint="جستجو..."
                     android:paddingStart="12dp"
+                    android:paddingLeft="12dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:paddingLeft="12dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
                     android:textColor="@color/defaultTextColor"
                     android:textColorHint="@color/secondaryTextColor"
-                    android:drawableLeft="@drawable/ic_search_gray_24dp"
-                    >
+                    android:textSize="16sp">
 
                 </EditText>
 

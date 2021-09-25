@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.R;
-import com.example.mytodo.databinding.ItemTaskBinding;
-import com.example.mytodo.mainListFragment.MainTaskAdapter;
 
 import java.util.Calendar;
 import java.util.List;

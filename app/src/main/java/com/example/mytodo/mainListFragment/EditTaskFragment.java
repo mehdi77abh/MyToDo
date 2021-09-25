@@ -1,4 +1,4 @@
-package com.example.mytodo.editTaskFragment;
+package com.example.mytodo.mainListFragment;
 
 import android.os.Bundle;
 
@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.mytodo.Database.Group;
 import com.example.mytodo.alarm.NotificationHelper;
 import com.example.mytodo.databinding.FragmentEditTaskBinding;
 import com.example.mytodo.main.MainViewModel;
@@ -40,7 +41,6 @@ public class EditTaskFragment extends Fragment implements PersianPickerListener 
     private Task task, selectedTask;
     private FragmentEditTaskBinding binding;
     private NotificationHelper notificationHelper;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -139,7 +139,7 @@ public class EditTaskFragment extends Fragment implements PersianPickerListener 
                 notificationHelper.setAlarm(task);
                 viewModel.updateTask(task);
                 Toast.makeText(getContext(), "کار ویرایش شد", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(getView()).navigate(R.id.action_EditTaskFragment_to_MainListFragmnet);
+                getActivity().onBackPressed();
             }
         });
 
@@ -157,7 +157,6 @@ public class EditTaskFragment extends Fragment implements PersianPickerListener 
             getActivity().onBackPressed();
         else if (item.getItemId() == R.id.menu_frg2_delete) {
             if (selectedTask.getDateLong() > Calendar.getInstance().getTimeInMillis()) {
-
                 notificationHelper.deleteAlarm(selectedTask);
                 notificationHelper.deleteNotification(selectedTask);
 

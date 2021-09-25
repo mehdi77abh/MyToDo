@@ -1,52 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_main.xml"
-    app:startDestination="@id/MainListFragmnet">
+    android:id="@+id/nav_graph">
 
-    <fragment
-        android:id="@+id/MainListFragmnet"
-        android:name="com.example.mytodo.mainListFragment.MainListFragment"
-        android:label="fragment_first_tab"
-        tools:layout="@layout/main_list_fragment" >
-        <action
-            android:id="@+id/action_firstTabFragment_to_secondTabFragment"
-            app:destination="@id/HistoryListFragment" />
-        <action
-            android:id="@+id/action_firstTabFragment_to_addTaskDialogFragment"
-            app:destination="@id/addTaskDialogFragment" />
-        <action
-            android:id="@+id/action_firstTabFragment_to_editTaskFragment"
-            app:destination="@id/EditTaskFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/HistoryListFragment"
-        android:name="com.example.mytodo.historyListFragment.HistoryListFragment"
-        android:label="fragment_list_history"
-        tools:layout="@layout/history_list_fragment" >
-        <action
-            android:id="@+id/action_HistoryListFragment_to_EditTaskFragment"
-            app:destination="@id/EditTaskFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addTaskDialogFragment"
-        android:name="com.example.mytodo.AddTaskFragment.AddTaskFragment"
-        android:label="AddTaskDialogFragment" >
-        <action
-            android:id="@+id/action_addTaskDialogFragment_to_firstTabFragment"
-            app:destination="@id/MainListFragmnet" />
-    </fragment>
-    <fragment
-        android:id="@+id/EditTaskFragment"
-        android:name="com.example.mytodo.editTaskFragment.EditTaskFragment"
-        android:label="fragment_edit_task"
-        tools:layout="@layout/fragment_edit_task" >
-        <action
-            android:id="@+id/action_EditTaskFragment_to_MainListFragmnet"
-            app:destination="@id/MainListFragmnet" />
-        <argument
-            android:name="selectedTask"
-            app:argType="com.example.mytodo.Database.Task" />
-    </fragment>
 </navigation>

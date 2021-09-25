@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.mytodo.Database.Task;
 import com.example.mytodo.alarm.NotificationHelper;
-import com.example.mytodo.databinding.HistoryListFragmentBinding;
+import com.example.mytodo.databinding.FragmentHistoryListBinding;
 import com.example.mytodo.main.MainViewModel;
 import com.example.mytodo.other.ListTouchHelper;
 import com.example.mytodo.R;
@@ -38,13 +38,13 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
     private HistoryListAdapter adapter;
     private MainViewModel viewModel;
     private List<Task> taskList;
-    private HistoryListFragmentBinding binding;
+    private FragmentHistoryListBinding binding;
     private NotificationHelper notificationHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = HistoryListFragmentBinding.inflate(inflater, container, false);
+        binding = FragmentHistoryListBinding.inflate(inflater, container, false);
         notificationHelper = new NotificationHelper(getContext());
         View view = binding.getRoot();
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.historyToolbar);
@@ -142,7 +142,7 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("selectedTask", task);
-        Navigation.findNavController(getView()).navigate(R.id.action_HistoryListFragment_to_EditTaskFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_historyListFragment_to_editTaskFragment, bundle);
 
     }
 

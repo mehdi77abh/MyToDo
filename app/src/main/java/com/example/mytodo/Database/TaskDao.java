@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -42,9 +41,9 @@ public interface TaskDao {
     @Query("SELECT * FROM tbl_tasks WHERE is_complete = 1 ORDER BY dateLong")
     LiveData<List<Task>> getCompleteTasks();
 
-    //get List For Status Check
-    @Query("SELECT * FROM tbl_tasks WHERE is_complete = 0 ORDER BY dateLong")
-    LiveData<List<Task>> getNotCompleteTasksList();
+    //get List For Main List
+    @Query("SELECT * FROM tbl_tasks WHERE is_complete = 0 AND groupId = :groupId  ORDER BY dateLong")
+    LiveData<List<Task>> getNotCompleteTasksList(int groupId);
 
 
 }

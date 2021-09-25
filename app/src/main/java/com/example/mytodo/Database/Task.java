@@ -18,6 +18,7 @@ public class Task implements Parcelable {
     private long dateLong;
     private long notificationId;
     private String description;
+    private int groupId;
 
 
     public long getDateLong() {
@@ -129,4 +130,12 @@ public class Task implements Parcelable {
             return new Task[size];
         }
     };
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 }

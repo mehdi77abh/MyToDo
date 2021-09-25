@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.mytodo.Database.Task;
-import com.example.mytodo.R;
 
 public class NotificationHelper {
     private Context context;

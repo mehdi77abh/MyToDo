@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    tools:context=".mainListFragment.MainListFragment">
+    tools:context=".mainListFragment.TasksListFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -33,25 +33,25 @@
 
             <EditText
                 android:id="@+id/searchEt"
-                android:textSize="16sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_edit_text"
-                android:hint="جستجو..."
-                android:drawablePadding="8dp"
-
-
-                android:paddingStart="12dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="12dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_edit_text"
+                android:drawableLeft="@drawable/ic_search_gray_24dp"
 
+
+                android:drawablePadding="8dp"
+                android:hint="جستجو..."
+                android:minHeight="48dp"
+                android:paddingStart="12dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="6dp"
+
+                android:paddingBottom="6dp"
                 android:textColor="@color/defaultTextColor"
                 android:textColorHint="@color/secondaryTextColor"
-                android:drawableLeft="@drawable/ic_search_gray_24dp"
-                >
+                android:textSize="16sp">
 
             </EditText>
 
@@ -61,6 +61,16 @@
         </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -109,9 +119,10 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="8dp"
         android:backgroundTint="@color/blue"
-        android:text="اضافه کردن"
+        android:text="کار جدید"
         app:icon="@drawable/ic_baseline_add_24"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+
         app:iconGravity="textEnd" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
