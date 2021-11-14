@@ -12,7 +12,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.example.mytodo.R;
-import com.example.mytodo.main.MainActivity;
+import com.example.mytodo.mainActivity.MainActivity;
 
 public class AlarmService extends BroadcastReceiver {
     public static final String channelID = "channelID";
@@ -47,7 +47,7 @@ public class AlarmService extends BroadcastReceiver {
                 .setContentTitle(title)
                 .setContentText(des)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_checked_checkbox);
+                .setSmallIcon(R.drawable.ic_baseline_check_24_black);
         mManager.notify(id, nb.build());
 
 

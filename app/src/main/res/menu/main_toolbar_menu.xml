@@ -3,18 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     tools:context="example.javatpoint.com.optionmenu.MainActivity">
-
     <item  android:id="@+id/menu_deleteAll"
-        android:title="پاک کردن همه رکورد ها"/>
+        android:icon="@drawable/ic_delete_24dp"
+        android:title="پاک کردن همه"/>
 
-    <item  android:id="@+id/menu_setting"
-        android:title="تنظیمات"
-       />
 
-    <item android:id="@+id/menu_history"
-        android:title="آرشیو"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_baseline_history_24"/>
+
+
+
 
 
 </menu>

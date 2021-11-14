@@ -7,7 +7,7 @@
     app:cardElevation="5dp"
     app:cardCornerRadius="10dp"
     app:contentPadding="6dp"
-    android:layout_height="160dp">
+    android:layout_height="130dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.8"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
                 android:gravity="center"
                 android:text="چهارشنبه"
                 android:textColor="@color/black"
@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:text="22"
                 android:textColor="@color/blue"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
                 android:text="اردیبهشت"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:alpha=".8"
-                android:lines="2"
+                android:lines="1"
                 android:maxLength="30"
                 android:text="درس برنامه نویسی اندروید بخش لیست ها"
                 android:textColor="@color/black"
@@ -134,20 +134,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleTv" />
 
+
             <TextView
                 android:id="@+id/timeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="4dp"
                 android:gravity="center"
                 android:text="20:20"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionTv" />
-
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTv"
+                android:layout_marginBottom="2dp"
+                app:layout_constraintVertical_bias="1.0"
+                />
 
             <ImageView
                 android:id="@+id/img_check"

@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".groupListFragment.AddGroupDialogFragment"
-    app:cardElevation="5dp"
     android:backgroundTint="#FBFBFB"
-    app:cardCornerRadius="10dp"
-    app:contentPadding="6dp"
+
     >
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -29,14 +24,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="لیست جدید"
+            android:text="گروه جدید"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:textColor="@color/black"
-        android:text="یک نام برای لیست جدیدتان وارد کنید"
+        android:text="یک نام برای گروه جدیدتان وارد کنید"
         android:layout_marginTop="24dp"
         android:id="@+id/textView"
         android:textSize="18sp"
@@ -54,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="نام لیست مورد نظر را وارد کنید"
+        android:hint="نام گروه مورد نظر را وارد کنید"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,4 +100,3 @@
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>

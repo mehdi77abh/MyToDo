@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.example.mytodo.other.Const.IMPORTANCE_NORMAL;
-import static com.example.mytodo.other.Const.IMPORTANCE_HIGH;
-import static com.example.mytodo.other.Const.IMPORTANCE_LOW;
+import static com.example.mytodo.myApp.Const.IMPORTANCE_NORMAL;
+import static com.example.mytodo.myApp.Const.IMPORTANCE_HIGH;
+import static com.example.mytodo.myApp.Const.IMPORTANCE_LOW;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mytodo.Database.Task;
+import com.example.mytodo.model.Task;
 import com.example.mytodo.R;
 
 import java.util.Calendar;

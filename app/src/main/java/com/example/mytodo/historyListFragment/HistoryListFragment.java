@@ -15,21 +15,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mytodo.Database.Task;
+import com.example.mytodo.model.Group;
+import com.example.mytodo.model.Task;
 import com.example.mytodo.alarm.NotificationHelper;
 import com.example.mytodo.databinding.FragmentHistoryListBinding;
-import com.example.mytodo.main.MainViewModel;
-import com.example.mytodo.other.ListTouchHelper;
+import com.example.mytodo.groupListFragment.AddGroupDialogFragment;
+import com.example.mytodo.mainActivity.MainViewModel;
+import com.example.mytodo.myApp.ListTouchHelper;
 import com.example.mytodo.R;
-import com.example.mytodo.other.ViewModelFactory;
+import com.example.mytodo.myApp.ViewModelFactory;
 
 import java.util.Calendar;
 import java.util.List;
@@ -37,7 +36,6 @@ import java.util.List;
 public class HistoryListFragment extends Fragment implements HistoryListAdapter.EventListener {
     private HistoryListAdapter adapter;
     private MainViewModel viewModel;
-    private List<Task> taskList;
     private FragmentHistoryListBinding binding;
     private NotificationHelper notificationHelper;
 
@@ -48,7 +46,6 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
         notificationHelper = new NotificationHelper(getContext());
         View view = binding.getRoot();
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.historyToolbar);
-        setHasOptionsMenu(true);
         return view;
     }
 
@@ -57,24 +54,43 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()
                 , new ViewModelFactory(getContext())).get(MainViewModel.class);
+
         binding.recyclerViewSecondFragment.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.historyDismissTv.setVisibility(View.GONE);
+        binding.historySearch.setVisibility(View.GONE);
         Glide.with(getContext()).load(R.drawable.empty_box).into(binding.historyEmptyStateImg);
         viewModel.getCompleteTasks().observe(getViewLifecycleOwner(), tasks -> {
-            this.taskList = tasks;
             if (tasks.size() > 0)
                 binding.historyEmptyStateContainer.setVisibility(View.GONE);
             else
                 binding.historyEmptyStateContainer.setVisibility(View.VISIBLE);
+
             adapter = new HistoryListAdapter(tasks, this);
             binding.recyclerViewSecondFragment.setAdapter(adapter);
 
         });
         ListTouchHelper.getTouchHelper(getContext(), pos -> {
-            viewModel.deleteTask(adapter.getTask(pos));
-
+            Task task =adapter.getTask(pos);
+            viewModel.deleteTask(task);
+            Toast.makeText(getContext(), "پاک شد", Toast.LENGTH_SHORT).show();
         }).attachToRecyclerView(binding.recyclerViewSecondFragment);
+        binding.historySearchImg.setOnClickListener(v -> {
+            binding.historySearch.setVisibility(View.VISIBLE);
+            binding.historySearchImg.setVisibility(View.GONE);
+            binding.historyDismissTv.setVisibility(View.VISIBLE);
+            binding.historyTitleTv.setVisibility(View.GONE);
 
-        binding.searchEt.addTextChangedListener(new TextWatcher() {
+        });
+        binding.historyDismissTv.setOnClickListener(v -> {
+            binding.historySearchImg.setVisibility(View.VISIBLE);
+            binding.historyDismissTv.setVisibility(View.GONE);
+            binding.historySearch.setVisibility(View.GONE);
+            binding.historyTitleTv.setVisibility(View.VISIBLE);
+            AddGroupDialogFragment.hideKeyboardFrom(getContext(),binding.getRoot().getRootView());
+            binding.historySearch.setText("");
+
+        });
+        binding.historySearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -99,23 +115,8 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
 
             }
         });
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.history_toolbar_menu, menu);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.menu_back)
-            getActivity().onBackPressed();
-        else if (item.getItemId() == R.id.menu_frg2_delete) {
-            if (taskList.size() > 0) {
+        binding.historyClear.setOnClickListener(v -> {
+            if (binding.historyEmptyStateContainer.getVisibility()==View.GONE) {
                 new AlertDialog.Builder(getContext())
                         .setTitle("پاک کردن")
                         .setMessage(R.string.delete_all_items_dialog)
@@ -131,10 +132,11 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
             } else
                 Toast.makeText(getContext(), "لیست شما خالی است", Toast.LENGTH_SHORT).show();
 
-
-        }
-        return true;
+        });
     }
+
+
+
 
     @Override
     public void ItemClickListener(Task task) {
@@ -148,12 +150,12 @@ public class HistoryListFragment extends Fragment implements HistoryListAdapter.
 
     @Override
     public void ImgClickListener(Task task) {
-        if (task.getDateLong() > Calendar.getInstance().getTimeInMillis()) {
-
+        if (task.getDateLong() < Calendar.getInstance().getTimeInMillis()) {
             notificationHelper.deleteAlarm(task);
             notificationHelper.deleteNotification(task);
 
         }
+
         task.setComplete(false);
         viewModel.updateTask(task);
         Toast.makeText(getContext(), "به لیست اضافه شد", Toast.LENGTH_SHORT).show();

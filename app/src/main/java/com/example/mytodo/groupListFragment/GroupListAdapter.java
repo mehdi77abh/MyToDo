@@ -9,10 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mytodo.Database.Group;
+import com.example.mytodo.model.Group;
 import com.example.mytodo.R;
 
 import java.util.List;
+
+import ir.hamsaa.persiandatepicker.util.PersianHelper;
 
 public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.GroupViewHolder> {
     private List<Group> groups;
@@ -39,7 +41,9 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
     public int getItemCount() {
         return groups.size();
     }
-
+    public Group getGroup(int pos){
+        return groups.get(pos);
+    }
     class GroupViewHolder extends RecyclerView.ViewHolder {
         private TextView groupTitleTv;
         private TextView groupCounterTv;
@@ -50,6 +54,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
             groupTitleTv = itemView.findViewById(R.id.txtTitle);
             groupCounterTv = itemView.findViewById(R.id.txtCounter);
             groupStar = itemView.findViewById(R.id.imgStar);
+
         }
 
         public void onBind(Group group) {
@@ -59,7 +64,8 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
             }else {
                 groupStar.setImageResource(R.drawable.ic_star_outline_24);
             }
-            groupCounterTv.setText(String.valueOf(group.getCounter()));
+            groupCounterTv.setText(PersianHelper.toPersianNumber(String.valueOf(group.getCounter())));
+
             itemView.setOnClickListener(v -> eventListener.onGroupClickListener(group));
             itemView.setOnLongClickListener(v -> {
                 eventListener.onLongGroupClickListener(group);

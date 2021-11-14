@@ -1,92 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    tools:context=".mainListFragment.TasksListFragment">
+    tools:context=".taskListFragment.TasksListFragment">
 
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-        android:background="@drawable/main_toolbar">
+        android:background="@drawable/main_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main_toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/MyToolbar"
-            android:background="@drawable/main_toolbar"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white"
-            app:menu="@menu/main_toolbar_menu" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginBottom="4dp">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="12dp">
+
+            <ImageView
+                android:id="@+id/tasksToolbarMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_menu_24"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+
+                android:id="@+id/titleTasksTv"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tasksToolbarMenu"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_search_gray_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:src="@drawable/ic_back_black_24dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+
+                android:id="@+id/dismissTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="لغو"
+
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <EditText
-                android:id="@+id/searchEt"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:id="@+id/searchTasksEt"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/background_edit_text"
-                android:drawableLeft="@drawable/ic_search_gray_24dp"
-
-
+                android:drawableLeft="@drawable/ic_search_black_24dp"
                 android:drawablePadding="8dp"
-                android:hint="جستجو..."
+                android:autofillHints="creditCardExpirationDate"
                 android:minHeight="48dp"
                 android:paddingStart="12dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="6dp"
+                android:paddingBottom="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dismissTv"
+                app:layout_constraintStart_toEndOf="@+id/tasksToolbarMenu"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                android:paddingBottom="6dp"
-                android:textColor="@color/defaultTextColor"
-                android:textColorHint="@color/secondaryTextColor"
-                android:textSize="16sp">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </EditText>
-
-
-
-
-        </RelativeLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-
-
-
-
-
-
-
-
-
+    </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
 
         <!-- Scrollable content -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_first_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-         />
+            android:layout_height="match_parent" />
 
     </androidx.core.widget.NestedScrollView>
 
@@ -95,21 +137,26 @@
         android:id="@+id/emptyStateContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/emptyStateImg"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/empty_state"
-            />
+            android:src="@drawable/empty_state" />
+
         <TextView
-            android:textColor="@color/blue"
-            android:text="یک کار جدید اضاف کنید"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"/>
+            android:text="یک کار جدید اضاف کنید"
+            android:textColor="@color/blue"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -121,10 +168,11 @@
         android:backgroundTint="@color/blue"
         android:text="کار جدید"
         app:icon="@drawable/ic_baseline_add_24"
+        app:iconGravity="textEnd"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        app:iconGravity="textEnd" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>
 

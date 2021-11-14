@@ -1,97 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".historyListFragment.HistoryListFragment"
     android:layoutDirection="rtl"
-    tools:context=".historyListFragment.HistoryListFragment">
-    <LinearLayout
+    >
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/historyToolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="112dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
 
-            android:background="@drawable/main_toolbar">
+            <ImageView
+                android:id="@+id/historyClear"
+                android:layout_width="wrap_content"
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/history_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="@drawable/main_toolbar"
-                android:theme="@style/MyToolbar"
-                app:menu="@menu/history_toolbar_menu"
-                app:title="@string/history_list"
-                app:titleTextColor="@color/white" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginBottom="4dp">
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/searchEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/background_edit_text"
-                    android:drawableLeft="@drawable/ic_search_gray_24dp"
-                    android:drawablePadding="8dp"
-                    android:hint="جستجو..."
-                    android:paddingStart="12dp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:textColor="@color/defaultTextColor"
-                    android:textColorHint="@color/secondaryTextColor"
-                    android:textSize="16sp">
+            <TextView
+                android:id="@+id/historyTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="تاریخچه"
+                android:textColor="@color/white"
+                android:textSize="18sp"
 
-                </EditText>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/historyDismissTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="لغو"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/historySearchImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_search_gray_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/historySearch"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/background_edit_text"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:hint="جستجو..."
+                android:minHeight="48dp"
+                android:paddingStart="12dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/historyDismissTv"
+                app:layout_constraintStart_toEndOf="@+id/historyClear"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_second_fragment"
 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historyToolbar"
+        app:layout_constraintVertical_bias="0.501" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_second_fragment"
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-             />
-
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/historyEmptyStateContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historyToolbar">
+
         <ImageView
             android:id="@+id/historyEmptyStateImg"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/empty_box"
-            />
+            android:src="@drawable/empty_box" />
+
         <TextView
-            android:textColor="@color/blue"
-            android:text="خالی است!"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"/>
+            android:text="خالی است!"
+            android:textColor="@color/blue"
+            android:textSize="14sp" />
     </LinearLayout>
 
 
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

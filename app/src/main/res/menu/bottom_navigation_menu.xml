@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/calenderFragment"
+        android:id="@+id/calender"
         android:icon="@drawable/ic_baseline_date_range_24"
         android:title="روزنگار"/>
 
     <item
-        android:id="@+id/groupListFragment"
+        android:id="@+id/group"
         android:icon="@drawable/ic_baseline_list_24"
-        android:title="لیست ها" />
+        android:title="گروه ها" />
     <item
-        android:id="@+id/historyListFragment"
+        android:id="@+id/history"
         android:icon="@drawable/ic_baseline_history_24"
         android:title="تاریخچه"
         />
