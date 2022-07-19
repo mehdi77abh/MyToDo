@@ -13,12 +13,30 @@ A **Sample** Planner App for Persian Calender
 
  **Screenshots**
  
-Expanded Calender Page     |     Calender Page          |     List Group Page             |     Edit Task Page          :
+Calendar Collapse Screen      |     Calendar Screen          |     Calendar Screen             |     Bottom Sheet Dialog          :
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![CalendarFragment](https://user-images.githubusercontent.com/54314092/171854315-fcca3703-d70d-4797-ab6f-e6eda50300c6.png) | ![Expanded Calender](https://user-images.githubusercontent.com/54314092/171854335-d868cbb5-7ebf-4015-9279-fe6125dcbba6.png) | ![GroupListFragment](https://user-images.githubusercontent.com/54314092/171854369-f8d2e4bf-1089-40d8-b9b0-4d938e72f78d.png) | ![EditTaskFragment](https://user-images.githubusercontent.com/54314092/171854498-3abe2b33-9067-48b8-a9b7-a35254c0bc38.png)
+![CalendarCollapse](https://user-images.githubusercontent.com/54314092/179793497-b3046322-ca03-4d2a-8e5b-ff3bb7242d52.png) | ![CalScreen](https://user-images.githubusercontent.com/54314092/179793563-0f3ce98b-9372-441c-b166-05e27f101117.png) | ![CalendarScreen](https://user-images.githubusercontent.com/54314092/179793680-bfd5e66a-b791-4c07-ba73-56d74be9f551.png) | ![BottomSheet](https://user-images.githubusercontent.com/54314092/179793641-5dad21a8-5937-45bb-9bc8-87b76078758e.png)
 
 
-History Of Task Page        | Add New Group Page          |  Main Task Page          |  Add New Task Page          :
+Add Group Screen        | Add Task Screen          |  Groups List Screen          |  Tasks List Screen          :
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![HistoryListFragment](https://user-images.githubusercontent.com/54314092/171854679-fca9e780-a8cf-43c1-acbd-f45d43204aa8.png) | ![AddGroupDialog](https://user-images.githubusercontent.com/54314092/171854696-6c8eb28c-9e08-412e-b416-7645a3302c05.png) | ![TaskListFragment](https://user-images.githubusercontent.com/54314092/171854717-200485b6-4615-4e1c-a0e4-7f7bfef12157.png) | ![AddTaskFragment](https://user-images.githubusercontent.com/54314092/171854730-7976319f-c3ff-4565-abdf-918797f37f60.png)
+![AddGroupScreen](https://user-images.githubusercontent.com/54314092/179793674-96544576-b861-4567-8bc6-66c7e8bd98df.png) | ![AddTaskScreen](https://user-images.githubusercontent.com/54314092/179793629-39a1825b-505e-47b1-8a5b-2df4440786b1.png) | ![GroupsScreen](https://user-images.githubusercontent.com/54314092/179793600-3d802be9-2ff1-4676-8965-3584d4d422ef.png) | ![TasksScreen](https://user-images.githubusercontent.com/54314092/179793611-fea18567-25d5-4c3b-9d2d-11d4b817c31b.png)
+
+Tasks Empty State        | Report Screen          |  SelectedGroup in Calendar          |  Bottom Menu In Group Screen        :
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![TasksEmptyState](https://user-images.githubusercontent.com/54314092/179793622-05cc676f-bc7d-4026-8a4b-e2aa32853b47.png) | ![ReportScreen](https://user-images.githubusercontent.com/54314092/179793593-a11e6d6c-2073-4458-8cf7-b2e8a6367d85.png) | ![SelectGroupInCal](https://user-images.githubusercontent.com/54314092/179793574-2087d14e-b908-42eb-b42b-36792557c7aa.png) | ![Menu In Calendar](https://user-images.githubusercontent.com/54314092/179794713-3cc0f870-233f-4e22-b2cb-a45bdd7076b0.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
